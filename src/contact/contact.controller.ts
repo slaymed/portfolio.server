@@ -21,33 +21,34 @@ export class ContactController {
   @Post()
   async sendMail(@Body() dto: ContactDto) {
     try {
-      // await this.mailerService.send({
-      //   from: MailFrom.CONTACT,
-      //   to: MailTo.HELLO,
-      //   replyTo: dto.email,
-      //   templateId: Templates.INQUIRY,
-      //   dynamicTemplateData: {
-      //     client_name: dto.name,
-      //     client_email: dto.email,
-      //     client_message: dto.message,
-      //   },
-      // });
-      // await this.mailerService.send({
-      //   from: MailFrom.NO_REPLY,
-      //   to: dto.email,
-      //   replyTo: MailTo.INQUIRY,
-      //   templateId: Templates.MESSAGE_RECEIVED,
-      //   dynamicTemplateData: {
-      //     name: 'Mohamed Bedr',
-      //     email: MailTo.INQUIRY,
-      //     client_name: dto.name,
-      //   },
-      // });
+      await this.mailerService.send({
+        from: MailFrom.CONTACT,
+        to: MailTo.HELLO,
+        replyTo: dto.email,
+        templateId: Templates.INQUIRY,
+        dynamicTemplateData: {
+          client_name: dto.name,
+          client_email: dto.email,
+          client_message: dto.message,
+        },
+      });
+      await this.mailerService.send({
+        from: MailFrom.NO_REPLY,
+        to: dto.email,
+        replyTo: MailTo.INQUIRY,
+        templateId: Templates.MESSAGE_RECEIVED,
+        dynamicTemplateData: {
+          name: 'Mohamed Bedr',
+          email: MailTo.INQUIRY,
+          client_name: dto.name,
+        },
+      });
       return {
         success: true,
         message: 'Your message has been sent successfully.',
       };
     } catch (error) {
+      console.log(error);
       throw new BadRequestException();
     }
   }
