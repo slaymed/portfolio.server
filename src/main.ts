@@ -8,7 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: { origin: process.env.CLIENT_APP },
   });
-  app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ exceptionFactory, whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const configService = app.get(ConfigService);
