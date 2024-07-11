@@ -48,7 +48,6 @@ export class ContactController {
         message: 'Your message has been sent successfully.',
       };
     } catch (error) {
-      console.log(error);
       throw new BadRequestException();
     }
   }
