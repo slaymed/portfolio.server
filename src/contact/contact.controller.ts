@@ -1,14 +1,23 @@
 import { MailFrom } from './../mailer/enums/mail-from.enum';
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { MailerService } from 'src/mailer/mailer.service';
 import { ContactDto } from './dto/contact.dto';
 import { MailTo } from 'src/mailer/enums/mail-to.enum';
 import { Templates } from 'src/mailer/enums/templates.enum';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { ThrottlerBehindProxyGuard } from 'src/common/guards/throttler-behind-proxy.guard';
 
 @Controller('contact')
 export class ContactController {
   constructor(private readonly mailerService: MailerService) {}
 
+  @UseGuards(ThrottlerBehindProxyGuard)
   @Post()
   async sendMail(@Body() dto: ContactDto) {
     try {
