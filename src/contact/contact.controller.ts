@@ -17,7 +17,7 @@ import { ThrottlerBehindProxyGuard } from 'src/common/guards/throttler-behind-pr
 export class ContactController {
   constructor(private readonly mailerService: MailerService) {}
 
-  @UseGuards(ThrottlerBehindProxyGuard)
+  // @UseGuards(ThrottlerBehindProxyGuard)
   @Post()
   async sendMail(@Body() dto: ContactDto) {
     try {
