@@ -5,8 +5,8 @@ import { ClientResponse, MailDataRequired, MailService } from '@sendgrid/mail';
 @Injectable()
 export class MailerService {
   constructor(
-    private readonly mailService: MailService,
     configService: ConfigService,
+    private readonly mailService: MailService,
   ) {
     this.mailService.setApiKey(configService.get('mailer').pass);
   }

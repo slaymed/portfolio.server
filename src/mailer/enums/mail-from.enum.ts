@@ -1,3 +1,4 @@
 export enum MailFrom {
-  HELLO = 'hello@querat.store',
+  CONTACT = 'contact@mohamedbedr.com',
+  NO_REPLY = 'no-reply@mohamedbedr.com',
 }

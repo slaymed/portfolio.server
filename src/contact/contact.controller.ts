@@ -13,8 +13,8 @@ export class ContactController {
   async sendMail(@Body() dto: ContactDto) {
     try {
       await this.mailerService.send({
-        from: MailFrom.HELLO,
-        to: MailTo.INQUIRY,
+        from: MailFrom.CONTACT,
+        to: MailTo.HELLO,
         replyTo: dto.email,
         templateId: Templates.INQUIRY,
         dynamicTemplateData: {
@@ -23,7 +23,21 @@ export class ContactController {
           client_message: dto.message,
         },
       });
-      return { message: 'Email sent successfully' };
+      await this.mailerService.send({
+        from: MailFrom.NO_REPLY,
+        to: dto.email,
+        replyTo: MailTo.INQUIRY,
+        templateId: Templates.MESSAGE_RECEIVED,
+        dynamicTemplateData: {
+          name: 'Mohamed Bedr',
+          email: MailTo.INQUIRY,
+          client_name: dto.name,
+        },
+      });
+      return {
+        success: true,
+        message: 'Your message has been sent successfully.',
+      };
     } catch (error) {
       throw new BadRequestException();
     }
