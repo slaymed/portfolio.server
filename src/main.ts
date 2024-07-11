@@ -5,7 +5,9 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { exceptionFactory } from './common/utils/exceptions-factory.util';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: { origin: process.env.CLIENT_APP },
+  });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ exceptionFactory, whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
