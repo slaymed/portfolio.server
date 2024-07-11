@@ -10,5 +10,6 @@ export function appConfig() {
       user: process.env.MAILER_USER,
       pass: process.env.MAILER_PASS,
     },
+    origin: process.env.ORIGIN,
   };
 }
